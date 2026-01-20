@@ -8,17 +8,23 @@ use App\Http\Controllers\admin\LevelController;
 use App\Http\Controllers\admin\MuscleController;
 use App\Http\Controllers\admin\TypeController;
 use App\Http\Controllers\ProfileController;
-use App\Models\Muscel;
-use App\Models\Muscle;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
-    return view('auth.login');
+    return view('auth.register');
 });
+
+
+Route::get('/user/dashboard', function () {
+    return view('index');
+})->name('index')->middleware('auth');
+
+
 
 Route::get('/admin/dashboard', function () {
     return view('admin.index');
-})->middleware(['auth', 'verified'])->name('dashboard');
+})->middleware(['auth', 'admin'])->name('dashboard');
+
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
@@ -36,6 +42,7 @@ Route::middleware('auth')->prefix('admin')->group(function () {
     Route::GET('type/show/{id}',[TypeController::class, 'show'])->name('type.show');
     Route::PUT('type/{id}',[TypeController::class, 'update'])->name('type.update');
     Route::DELETE ('type/{id}',[TypeController::class, 'destroy'])->name('type.destroy');
+
 
 });
 
