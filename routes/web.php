@@ -7,7 +7,9 @@ use App\Http\Controllers\admin\ExercisePositionController;
 use App\Http\Controllers\admin\LevelController;
 use App\Http\Controllers\admin\MuscleController;
 use App\Http\Controllers\admin\TypeController;
+use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ProfileController;
+use App\Models\BodyPart;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -15,9 +17,10 @@ Route::get('/', function () {
 });
 
 
-Route::get('/user/dashboard', function () {
-    return view('index');
-})->name('index')->middleware('auth');
+
+Route::get('/user/dashboard', [HomeController::class, 'index'])
+    ->middleware('auth')
+    ->name('index');
 
 
 
@@ -25,6 +28,10 @@ Route::get('/admin/dashboard', function () {
     return view('admin.index');
 })->middleware(['auth', 'admin'])->name('dashboard');
 
+
+
+Route::get('/get-exercises/{bodyPartId}', [ExcerciseController::class, 'getExercises']);
+Route::get('/get-levels/{bodyLevelId}', [ExcerciseController::class, 'getBodyExercises']);
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
@@ -34,7 +41,7 @@ Route::middleware('auth')->group(function () {
 
 
 //Type Routes
-Route::middleware('auth')->prefix('admin')->group(function () {
+Route::middleware(['auth','admin'])->prefix('admin')->group(function () {
     Route::GET('type',[TypeController::class, 'index'])->name('type.list');
     Route::POST('type/store',[TypeController::class, 'store'])->name('type.store');
     Route::GET('type/create',[TypeController::class, 'create'])->name('type.create');
@@ -47,7 +54,7 @@ Route::middleware('auth')->prefix('admin')->group(function () {
 });
 
 //body level
-Route::middleware('auth')->prefix('admin')->group(function () {
+Route::middleware(['auth','admin'])->prefix('admin')->group(function () {
     Route::GET('bodylevel',[BodyLevelController::class, 'index'])->name('bodylevel.list');
     Route::POST('bodylevel/store',[BodyLevelController::class, 'store'])->name('bodylevel.store');
     Route::GET('bodylevel/create',[BodyLevelController::class, 'create'])->name('bodylevel.create');
@@ -59,7 +66,7 @@ Route::middleware('auth')->prefix('admin')->group(function () {
 });
 
 //Excercise
-Route::middleware('auth')->prefix('admin')->group(function () {
+Route::middleware(['auth','admin'])->prefix('admin')->group(function () {
     Route::GET('exercise',[ExcerciseController::class, 'index'])->name('exercise.list');
     Route::POST('exercise/store',[ExcerciseController::class, 'store'])->name('exercise.store');
     Route::GET('exercise/create',[ExcerciseController::class, 'create'])->name('exercise.create');
@@ -71,7 +78,7 @@ Route::middleware('auth')->prefix('admin')->group(function () {
 });
 
 //Level
-Route::middleware('auth')->prefix('admin')->group(function () {
+Route::middleware(['auth','admin'])->prefix('admin')->group(function () {
     Route::GET('level',[LevelController::class, 'index'])->name('level.list');
     Route::POST('level/store',[LevelController::class, 'store'])->name('level.store');
     Route::GET('level/create',[LevelController::class, 'create'])->name('level.create');
@@ -84,7 +91,7 @@ Route::middleware('auth')->prefix('admin')->group(function () {
 
 
 //bodyPart
-Route::middleware('auth')->prefix('admin')->group(function () {
+Route::middleware(['auth','admin'])->prefix('admin')->group(function () {
     Route::GET('bodypart',[BodyPartController::class, 'index'])->name('bodypart.list');
     Route::POST('bodypart/store',[BodyPartController::class, 'store'])->name('bodypart.store');
     Route::GET('bodypart/create',[BodyPartController::class, 'create'])->name('bodypart.create');
@@ -96,7 +103,7 @@ Route::middleware('auth')->prefix('admin')->group(function () {
 });
 
 //Muscel
-Route::middleware('auth')->prefix('admin')->group(function () {
+Route::middleware(['auth','admin'])->prefix('admin')->group(function () {
     Route::GET('muscle',[MuscleController::class, 'index'])->name('muscle.list');
     Route::POST('muscle/store',[MuscleController::class, 'store'])->name('muscle.store');
     Route::GET('muscle/create',[MuscleController::class, 'create'])->name('muscle.create');
@@ -109,7 +116,7 @@ Route::middleware('auth')->prefix('admin')->group(function () {
 
 
 //ExercisePosition
-Route::middleware('auth')->prefix('admin')->group(function () {
+Route::middleware(['auth','admin'])->prefix('admin')->group(function () {
     Route::GET('exerciseposition',[ExercisePositionController::class, 'index'])->name('exerciseposition.list');
     Route::POST('exerciseposition/store',[ExercisePositionController::class, 'store'])->name('exerciseposition.store');
     Route::GET('exerciseposition/create',[ExercisePositionController::class, 'create'])->name('exerciseposition.create');

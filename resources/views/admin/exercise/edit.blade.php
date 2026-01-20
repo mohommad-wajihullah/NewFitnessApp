@@ -1,7 +1,6 @@
 @extends('admin.layouts.app')
 @section('content')
     <div class="page-body">
-
         <div class="container-fluid">
             <div class="row">
                 <div class="col-12">
@@ -66,11 +65,10 @@
                                                     value="{{ old('time_tense',$exercise->time_tense) }}"
                                                 >
                                             </div>
-
                                             <div class="mb-4 row align-items-center">
                                                 <div class="col-sm-3 form-label-title">Body Part</div>
                                                 <div class="col-sm-9">
-                                                    <select name="type_id" class="form-control w-50 form-select shadow-sm rounded-pill">
+                                                    <select name="part_id" class="form-control w-50 form-select shadow-sm rounded-pill">
 
                                                         @foreach ($bodyPart as $parts)
                                                             <option value="{{ $parts->id }}"
@@ -88,7 +86,7 @@
                                             <div class="mb-4 row align-items-center">
                                                 <div class="col-sm-3 form-label-title">Body Level</div>
                                                 <div class="col-sm-9">
-                                                    <select name="type_id" class="form-control w-50 form-select shadow-sm rounded-pill">
+                                                    <select name="body_id" class="form-control w-50 form-select shadow-sm rounded-pill">
 
                                                         @foreach ($bodyLevel as $lvl)
                                                             <option value="{{ $lvl->id }}"
@@ -106,7 +104,7 @@
                                             <div class="mb-4 row align-items-center">
                                                 <div class="col-sm-3 form-label-title">Muscle</div>
                                                 <div class="col-sm-9">
-                                                    <select name="type_id" class="form-control w-50 form-select shadow-sm rounded-pill">
+                                                    <select name="muscle_id" class="form-control w-50 form-select shadow-sm rounded-pill">
 
                                                         @foreach ($muscle as $muscles)
                                                             <option value="{{ $muscles->id }}"
@@ -124,7 +122,7 @@
                                             <div class="mb-4 row align-items-center">
                                                 <div class="col-sm-3 form-label-title">Level of Exercise</div>
                                                 <div class="col-sm-9">
-                                                    <select name="type_id" class="form-control w-50 form-select shadow-sm rounded-pill">
+                                                    <select name="level_id" class="form-control w-50 form-select shadow-sm rounded-pill">
 
                                                         @foreach ($levelExercise as $levels)
                                                             <option value="{{ $levels->id }}"
@@ -139,8 +137,6 @@
                                                     </select>
                                                 </div>
                                             </div>
-
-
 
                                             <button type="submit" class="btn btn-primary mt-3">
                                                 Add Exercise

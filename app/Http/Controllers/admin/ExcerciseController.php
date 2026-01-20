@@ -27,6 +27,9 @@ class ExcerciseController extends Controller
         return view('admin.exercise.list', compact('exercise'));
     }
 
+
+
+
     public function create()
     {
         $exercise = Exercise::all();
@@ -37,6 +40,16 @@ class ExcerciseController extends Controller
 
 
         return view('admin.exercise.add', compact('exercise','bodyLevel','bodyPart','levelExercise','muscle'));
+    }
+    public function getExercises($bodyPartId)
+    {
+        $exercises = Exercise::where('part_id', $bodyPartId)->get();
+        return response()->json($exercises); // send as JSON for AJAX
+    }
+    public function getBodyExercises($bodyLevelId)
+    {
+        $exercises = Exercise::where('level_id', $bodyLevelId)->get();
+        return response()->json($exercises); // send as JSON for AJAX
     }
 
     public function store(Request $request)
@@ -72,7 +85,6 @@ class ExcerciseController extends Controller
 
         return view('admin.exercise.list', compact('exercise'));
     }
-
     public function edit($id)
     {
         $exercise=Exercise::findorFail($id);
@@ -101,8 +113,6 @@ class ExcerciseController extends Controller
             'part_id'=>'nullable|exists:body_parts,id',
             'muscle_id'=>'nullable|exists:muscles,id',
             'level_id'=>'nullable|exists:levels,id',
-
-
         ]);
 
 
