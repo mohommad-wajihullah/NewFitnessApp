@@ -54,6 +54,15 @@
 
 
 
-        </script>
+    // OPTIONAL: If editing an exercise, pre-load its data
+    $(document).ready(function(){
+        let initialBodyPartId = $('#bodyPart').val();
+        let initialBodyLevelId = $('#bodyLevel').val();
+        let selectedExerciseId = $('#exercise').data('selected'); // set via Blade: data-selected="{{ $exercise->id ?? '' }}"
+        let selectedLevelExerciseId = $('#levelExercise').data('selected');
+        if(initialBodyPartId) loadExercises(initialBodyPartId, selectedExerciseId);
+        if(initialBodyLevelId) loadLevelExercises(initialBodyLevelId, selectedLevelExerciseId);
+    });
+</script>
 
 
